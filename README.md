@@ -30,3 +30,7 @@ Minimal web browser based on Chromium.
 - [ ] Setup tailwindcss properly
 - [ ] Set up GitHub actions as CI
 - [ ] Publish GitHub Pages with links to builds
+
+### Thanks
+
+[https://undraw.co/](https://undraw.co/) for free SVG illustrations that made icon possible.
