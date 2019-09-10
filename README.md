@@ -22,6 +22,7 @@ Minimal web browser based on Chromium.
 ### Features
 
 - [ ] Remember scroll position between reloads
+- [ ] Guess URL if not correct
 
 ### Process
 
