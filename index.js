@@ -1,40 +1,50 @@
 const path = require('path');
-const { app, BrowserWindow, BrowserView } = require('electron');
-
-require('electron-reload')(__dirname, {
-  electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
-});
+const { app, BrowserWindow, BrowserView, ipcMain } = require('electron');
 
 function createWindow() {
+  const screen = require('electron').screen;
+  const mainScreen = screen.getPrimaryDisplay();
+
+  const wh = {
+    w: mainScreen.size.width,
+    h: mainScreen.size.height,
+    defaultWidth: 480
+  };
+
   let win = new BrowserWindow({
-    width: 1024,
-    height: 768,
+    width: wh.defaultWidth,
+    height: wh.h,
+    y: 0,
+    x: wh.w - wh.defaultWidth,
+    titleBarStyle: 'hidden',
+    icon: path.join(__dirname, 'assets/icons/png/512x512.png'),
     webPreferences: {
       nodeIntegration: true
     }
   });
 
-  let browser = new BrowserView();
-  let addressBar = new BrowserView();
+  const BAR = {
+    height: 23
+  };
 
-  browser.setAutoResize({
+  let view = new BrowserView();
+
+  win.loadFile('index.html');
+  win.addBrowserView(view);
+  view.setBounds({ x: 0, y: BAR.height, width: wh.defaultWidth, height: wh.h - BAR.height });
+  view.setAutoResize({
     horizontal: true,
-    vertical: true,
+    vertical: true
   });
 
-  addressBar.setAutoResize({
-    horizontal: true
+  view.webContents.loadURL('https://localhost:3000');
+
+  ipcMain.on('loadURL', (event, args) => {
+    view.webContents.loadURL(args);
+    view.webContents.focus();
+    event.returnValue = 'message';
   });
-
-  win.addBrowserView(browser);
-  browser.setBounds({ x: 0, y: 44, width: 1024, height: 768 - 46 });
-  browser.webContents.loadURL('https://www.github.com');
-  
-  win.addBrowserView(addressBar);
-  addressBar.setBounds({ x: 0, y: 0, width: 1024, height: 44 });
-  addressBar.webContents.loadURL(`file://${__dirname}/index.html`);
-
-  // win.webContents.openDevTools();
 }
 
+app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
 app.on('ready', createWindow);

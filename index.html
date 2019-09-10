@@ -4,15 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Hello world</title>
-  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <link href="./tailwind.min.css" rel="stylesheet">
+  <link href="./app.css" rel="stylesheet">
 </head>
-<body class="antialiased bg-grey overflow-x-hidden">
-
-  <form class="h-16 flex">
-    <input type="text" value="https://localhost:3000" />
-    <button class="">Go</button>
+<body class="antialiased bg-gray-900 overflow-hidden">
+  <form class="flex items-start">
+    <input
+      class="flex-1 text-sm text-center opacity-75 focus:opacity-100 bg-gray-700 text-white outline-none px-2 py-px -m-px"
+      type="url" 
+      value="https://localhost:3000/" />
+    <button class="bg-gray-700 text-white text-sm px-3 py-px" hidden>Go</button>
   </form>
 
+  <script>
+    const { ipcRenderer } = require('electron');
+    
+    const _form = document.querySelector('form');
+    const _input = _form.querySelector('input[type="url"]');
+
+    _form.addEventListener('submit', e => {
+      e.preventDefault();
+      ipcRenderer.sendSync('loadURL', _input.value);
+    });
+  </script>
 </body>
 </html>

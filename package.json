@@ -1,21 +1,22 @@
 {
   "name": "sizzam",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Minimal web browser based on Chromium.",
   "main": "index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "npx electron .",
+    "package-mac": "npx electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "npx electron-packager . sizzam --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=SpaghettiCoders --version-string.FileDescription=Sizzam --version-string.ProductName=\"Sizzam\"",
+    "package-linux": "npx electron-packager . sizzam --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds"
   },
-  "keywords": [],
+  "keywords": [
+    "browser"
+  ],
   "author": "Paweł Kowalski <pavelloz@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "electron": "^6.0.8"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^1.2.0",
-    "electron-reload": "^1.5.0",
-    "postcss": "^7.0.18",
-    "tailwindcss": "^1.1.2"
+    "electron": "^6.0.8",
+    "electron-packager": "^14.0.6"
   }
 }
