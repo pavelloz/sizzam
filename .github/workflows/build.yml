@@ -13,8 +13,8 @@ jobs:
       - name: Mac OS
         uses: actions/setup-node@master
         with:
-          version: 12
+          node-version: 12
 
       - run: npm ci
       - run: npm run package-mac
-      - run: ls release-builds
+      - run: tree release-builds
