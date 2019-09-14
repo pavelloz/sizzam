@@ -2,7 +2,7 @@ name: Build
 on: [push]
 
 jobs:
-  build:
+  build-nix:
     name: Build *nix
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +27,7 @@ jobs:
       - name: Show builds
         run: ls -R release-builds
   
-  build:
+  build-win32:
     name: Build win32
     runs-on: windows-latest
     steps:
