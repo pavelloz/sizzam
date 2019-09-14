@@ -23,6 +23,7 @@ Minimal web browser based on Chromium.
 
 - [ ] Remember scroll position between reloads
 - [ ] Guess URL if not correct
+- [ ] Do not show in dock. Keep in tray instead.
 
 ### Process
 

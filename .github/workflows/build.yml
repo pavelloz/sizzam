@@ -3,17 +3,18 @@ on: [push]
 
 jobs:
   build:
-    name: Build
+    name: Build *nix
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
 
-      - name: Mac OS
+      - name: '*nix builds'
         uses: actions/setup-node@master
         with:
           node-version: 12
+
       - name: Install dependencies
         run: npm ci
       
@@ -23,8 +24,27 @@ jobs:
       - name: Build linux
         run: npm run package-linux
 
+      - name: Show builds
+        run: ls -R release-builds
+  
+  build:
+    name: Build win32
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: '*nix builds'
+        uses: actions/setup-node@master
+        with:
+          node-version: 12
+      
+      - name: Install dependencies
+        run: npm ci
+  
       - name: Build windows
         run: npm run package-win
 
       - name: Show builds
         run: ls -R release-builds
+  
